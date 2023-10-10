@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container ">
+        <div class="row justify-content-center" style="margin-top: 50px">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+
+                    </div>
+
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('insertionClient') }}">
+                            @csrf
+
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Non client') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __(' password') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}" required autofocus>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Register') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <table class="table  table-striped col-md-8" >
+        <thead>
+            <tr>
+                <td>ObjectId</td>
+                <td>Nom client</td>
+                <td>Update</td>
+                <td>Supression</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($client as $data)
+            <tr>
+                <th>{{ ($data->getObjectId()) }}</th>
+                <th>{{ $data->name }}</th>
+                <form action="{{ route('updateClient',$data->getObjectId()) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <th class="col-md-6">
+                        <div class="row ">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control col-md-2" name="name" value="{{ old('name') }}" required autofocus>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-secondary">update</button>
+                            </div>
+                        </div>
+                    </th>
+                </form>
+                <form action="{{ route('deleteClient',$data->getObjectId()) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <th>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </th>
+                </form>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    </div>
+
+    <script src="{{ asset('js/app.js') }}"></script>
+</body>
+</html>
+
