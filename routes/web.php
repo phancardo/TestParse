@@ -25,6 +25,13 @@ Route::delete('/deleteClient/{id}', 'ClientController@deleteClient')->name('dele
 Route::post('/insertionUser', 'UtilisateurController@saveUser')->name(('insertionUser'));
 Route::post('/loginUser', 'UtilisateurController@loginUser')->name(('loginUser'));
 Route::get('/getUser', 'ClientController@getUser');
+//Coo
+
+Route::get('/insertionCoo', 'ClientController@insertionCoo')->name(('insertionCoo'));
+//relation
+Route::get('/showRelation', 'ClientController@showRelation')->name(('showRelation'));
+Route::get('/showRelationData', 'ClientController@showRelationData')->name(('showRelationData'));
+Route::get('/map', 'ClientController@map')->name(('map'));
 
 
 
@@ -37,9 +44,10 @@ Route::get('/users', function () {
 });
 Route::get('/', function () {
     $query = new ParseQuery("Client");
-            $client = $query->find();
-
-            return view('inscription', compact('client'));
+    $client = $query->find();
+    return view('inscription',[
+        'client'=>$client
+    ]);
 
 });
 
@@ -47,3 +55,4 @@ Route::get('/login', function () {
     return view('login');
 
 });
+

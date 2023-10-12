@@ -52,13 +52,15 @@
             </div>
         </div>
 
-    <table class="table  table-striped col-md-8" >
+     <table class="table  table-striped table-hover" >
         <thead>
             <tr>
                 <td>ObjectId</td>
                 <td>Nom client</td>
                 <td>Update</td>
                 <td>Supression</td>
+                <td>Adresse</td>
+                <td>Poste</td>
             </tr>
         </thead>
         <tbody>
@@ -66,20 +68,15 @@
             <tr>
                 <th>{{ ($data->getObjectId()) }}</th>
                 <th>{{ $data->name }}</th>
-                <form action="{{ route('updateClient',$data->getObjectId()) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <th class="col-md-6">
-                        <div class="row ">
-                            <div class="col-md-4">
-                                <input type="text" class="form-control col-md-2" name="name" value="{{ old('name') }}" required autofocus>
-                            </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-secondary">update</button>
-                            </div>
-                        </div>
-                    </th>
-                </form>
+                <th>
+                    <form action="{{ route('updateClient',$data->getObjectId()) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                            <input type="text" class=" col-md-4" name="name" value="{{ old('name') }}" required autofocus>
+                            <button type="submit" class="btn btn-secondary">update</button>
+                    </form>
+                </th>
                 <form action="{{ route('deleteClient',$data->getObjectId()) }}" method="POST">
                     @csrf
                     @method('DELETE')
@@ -87,6 +84,12 @@
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </th>
                 </form>
+                <th>
+                    Addresse
+                </th>
+                <th>
+                    Poste
+                </th>
             </tr>
             @endforeach
         </tbody>
